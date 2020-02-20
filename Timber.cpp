@@ -319,6 +319,15 @@ int main()
 
                 spritePlayer.setPosition(1200, 720);
                 
+                // Check if you hit a bee
+                if (spriteBee.getPosition().x >= AXE_POSITION_LEFT && 
+                    spriteBee.getPosition().x <= AXE_POSITION_RIGHT && 
+                    spriteBee.getPosition().y >= 720 &&
+                    spriteBee.getPosition().y <= 820) {
+                    score = score * 2;
+                    beeActive = false;
+                }
+
                 // Update the branches
                 updateBranches(score);
 
