@@ -140,6 +140,25 @@ int main()
     fpsText.setFillColor(Color::Yellow);
     highScoreText.setFillColor(Color::Green);
 
+    // Create Hud background boxes
+    RectangleShape fpsHud;
+    float fpsHeight = 75;
+    float fpsWidth = 125;
+    fpsHud.setSize(Vector2f(fpsWidth, fpsHeight));
+    fpsHud.setFillColor(Color(0, 0, 0, 122));
+    fpsHud.setPosition(1920 - fpsWidth, 0);
+    fpsHud.setOutlineColor(Color::Black);
+    fpsHud.setOutlineThickness(2);
+
+    RectangleShape scoreHud;
+    float scoreHeight = scoreText.getGlobalBounds().height + highScoreText.getGlobalBounds().height + 80;
+    float scoreWidth = scoreText.getGlobalBounds().width + 150;
+    scoreHud.setSize(Vector2f(scoreWidth, scoreHeight));
+    scoreHud.setFillColor(Color(0, 0, 0, 122));
+    scoreHud.setPosition(0, 0);
+    scoreHud.setOutlineColor(Color::Black);
+    scoreHud.setOutlineThickness(2);
+
     // Position the text
     FloatRect textRect = messageText.getLocalBounds();
     messageText.setOrigin(textRect.left +
@@ -518,9 +537,6 @@ int main()
         for (int i = 0; i < NUM_CLOUDS; i++) {
             window.draw(clouds[i]);
         }
-        /*window.draw(spriteCloud1);
-        window.draw(spriteCloud2);
-        window.draw(spriteCloud3);*/
 
         //  Draw the branches
         for (int i = 0; i < NUM_BRANCHES; i++) {
@@ -544,6 +560,10 @@ int main()
 
         // Draw the bee
         window.draw(spriteBee);
+
+        // Draw HUD boxes
+        window.draw(fpsHud);
+        window.draw(scoreHud);
 
         // Draw the score
         window.draw(scoreText);
