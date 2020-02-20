@@ -1,7 +1,9 @@
 #include <iostream>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include <SFML/Audio.hpp>
+#include <fstream>
 
 using namespace sf;
 
@@ -105,6 +107,15 @@ int main()
     // Score
     int score = 0;
     int highScore = 0;
+    int savedScore;
+    std::ifstream myFile("highScore.txt");
+    if (myFile.is_open()) {
+        while (!myFile.eof()) {
+            myFile >> highScore;
+        }
+        myFile.close();
+    }
+
 
     // Draw some text
     Text highScoreText;
@@ -126,7 +137,9 @@ int main()
     messageText.setString("Press Enter to start!");
     scoreText.setString("Score = 0");
     fpsText.setString("0");
-    highScoreText.setString("N/A");
+    std::stringstream hs;
+    hs << highScore;
+    highScoreText.setString(hs.str());
 
     // Make it really big
     messageText.setCharacterSize(75);
@@ -492,6 +505,11 @@ int main()
                 std::stringstream hs;
                 hs << highScore;
                 highScoreText.setString(hs.str());
+                std::ofstream myFile("highScore.txt");
+                if (myFile.is_open()) {
+                    myFile << highScore;
+                    myFile.close();
+                }
             }
 
         } // End if(!paused)
